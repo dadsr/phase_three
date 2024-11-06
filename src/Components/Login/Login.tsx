@@ -1,100 +1,102 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { Card, TextField, Button, Typography, Box } from '@mui/material';
-import { authService } from './authService'; // Ensure this path is correct
+import {
+    Box,
+    TextField,
+    Button,
+    Select,
+    MenuItem,
+    FormControl,
+    InputLabel,
+    Typography
+} from '@mui/material';
+import {useNavigate} from "react-router-dom";
+
+type LoginType = 'Admin' | 'Company' | 'Client';
+
 
 export function Login(): JSX.Element {
     const navigate = useNavigate();
-    const [formData, setFormData] = useState({
-        username: '',
-        password: '',
-    });
-    const [errors, setErrors] = useState({
-        username: '',
-        password: '',
-    });
 
-    const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        const { name, value } = event.target;
-        setFormData(prevData => ({
-            ...prevData,
-            [name]: value,
-        }));
-        // Clear error when user starts typing
-        setErrors(prevErrors => ({
-            ...prevErrors,
-            [name]: '',
-        }));
+    const [username, setUsername] = useState('');
+    const [password, setPassword] = useState('');
+    const [loginType, setLoginType] = useState<LoginType>('Client');
+
+    const handleLogin = () => {
+        // Here you would typically make an API call to authenticate
+        // For this example, we'll just simulate a successful login
+        const token = 'example_token_' + loginType.toLowerCase();
+        localStorage.setItem('token', token);
+        localStorage.setItem('userType', loginType);
+        alert(`Logged in as ${loginType}. Token stored in localStorage.`);
     };
 
-    const validateForm = () => {
-        let isValid = true;
-        const newErrors = { username: '', password: '' };
-
-        if (!formData.username.trim()) {
-            newErrors.username = 'Username is required';
-            isValid = false;
-        }
-        if (!formData.password) {
-            newErrors.password = 'Password is required';
-            isValid = false;
-        }
-
-        setErrors(newErrors);
-        return isValid;
-    };
-
-    const handleSubmit = async (event: React.FormEvent) => {
-        event.preventDefault();
-        if (!validateForm()) return;
-
-        try {
-            const token = await authService.login(formData.username, formData.password);
-            localStorage.setItem('token', token);
-            navigate("/toys");
-        } catch (err) {
-            alert("ERROR! " + (err as Error).message);
-        }
-    };
+    function submitLogin(event: React.FormEvent){
+        event.preventDefault(); // DO NOT RUN ORIGINAL FORM SUBMIT CODE!
+        authService.login(username, password)
+            .then(token=>{localStorage.token = token; navigate("/toys");})
+            .catch(err=>alert("ERROR! "+ err.response.data));
+    }
 
     return (
-        <Card sx={{ maxWidth: 400, margin: 'auto', mt: 5, p: 3 }}>
-            <Typography variant="h5" component="h2" gutterBottom>
+        <Box className="Login"
+             sx={{
+                 display: 'flex',
+                 flexDirection: 'column',
+                 alignItems: 'center',
+                 maxWidth: 400,
+                 margin: 'auto',
+                 marginTop: 8,
+                 padding: 3,
+                 borderRadius: 2,
+                 boxShadow: 3,
+             }}
+        >
+            <Typography variant="h4" component="h1" gutterBottom>
                 Please Log in
             </Typography>
-            <Box component="form" onSubmit={handleSubmit} noValidate>
+            <form onSubmit={submitLogin}>
+
                 <TextField
                     label="Username"
-                    name="username"
-                    value={formData.username}
-                    onChange={handleChange}
-                    error={!!errors.username}
-                    helperText={errors.username}
+                    variant="outlined"
                     fullWidth
                     margin="normal"
-                    required
+                    value={username}
+                    onChange={(e) => setUsername(e.target.value)}
                 />
                 <TextField
                     label="Password"
-                    name="password"
                     type="password"
-                    value={formData.password}
-                    onChange={handleChange}
-                    error={!!errors.password}
-                    helperText={errors.password}
+                    variant="outlined"
                     fullWidth
                     margin="normal"
-                    required
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
                 />
+                <FormControl fullWidth margin="normal">
+                    <InputLabel>Login Type</InputLabel>
+                    <Select
+                        value={loginType}
+                        label="Login Type"
+                        onChange={(e) => setLoginType(e.target.value as LoginType)}
+                    >
+                        <MenuItem value="Admin">Admin</MenuItem>
+                        <MenuItem value="Company">Company</MenuItem>
+                        <MenuItem value="Client">Client</MenuItem>
+                    </Select>
+                </FormControl>
                 <Button
-                    type="submit"
                     variant="contained"
+                    color="primary"
                     fullWidth
-                    sx={{ mt: 2 }}
+                    size="large"
+                    onClick={handleLogin}
+                    sx={{marginTop: 2}}
                 >
                     Login
                 </Button>
-            </Box>
-        </Card>
-    );
+            </form>
+        </Box>
+);
+
 }

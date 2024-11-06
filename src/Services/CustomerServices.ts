@@ -1,11 +1,11 @@
 import axios from "axios";
-import {Customer} from "../Models/Customer";
+import {CustomerEntity} from "../Models/CustomerEntity";
 import {API_CONFIG} from "../config";
 
 class CustomerServices{
 
-    async getOneCustomer(id: number):Promise<Customer> {
-        return (await axios.get<Customer>(API_CONFIG.BASE_URL+"/customer/"+id)).data
+    async getOneCustomer(id: number):Promise<CustomerEntity> {
+        return (await axios.get<CustomerEntity>(API_CONFIG.BASE_URL+"/customer/"+id)).data
     }
 
 }

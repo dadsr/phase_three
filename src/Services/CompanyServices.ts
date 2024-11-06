@@ -1,12 +1,12 @@
-import {Company} from "../Models/Company";
+import {CompanyEntity} from "../Models/CompanyEntity";
 import axios from "axios";
-import {Customer} from "../Models/Customer";
+import {CustomerEntity} from "../Models/CustomerEntity";
 import {API_CONFIG} from "../config";
 
 class CompanyServices{
 
-async getOneCompany(id: number):Promise<Company>{
-    return (await axios.get<Company>(API_CONFIG.BASE_URL+"/company/"+id)).data
+async getOneCompany(id: number):Promise<CompanyEntity>{
+    return (await axios.get<CompanyEntity>(API_CONFIG.BASE_URL+"/company/"+id)).data
     }
 }
 

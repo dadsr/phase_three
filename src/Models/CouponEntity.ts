@@ -1,4 +1,4 @@
-export class Coupon{
+export class CouponEntity {
     id:number;
     title:string;
     description:string;

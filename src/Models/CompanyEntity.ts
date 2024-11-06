@@ -1,5 +1,5 @@
 
-export class Company{
+export class CompanyEntity {
     id:number;
     name:string;
     email:string;

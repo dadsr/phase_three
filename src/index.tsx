@@ -1,12 +1,12 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
-import App from './App';
 import reportWebVitals from './reportWebVitals';
-import {BrowserRouter, Router} from "react-router-dom";
+import {BrowserRouter} from "react-router-dom";
 import {Header} from "./Components/Header/Header";
 import {Routing} from "./Routing/Routing";
 import {Footer} from "./Components/Footer/Footer";
+import {Login} from "./Components/Login/Login";
 
 const root = ReactDOM.createRoot(
     document.getElementById('root') as HTMLElement
@@ -14,7 +14,7 @@ const root = ReactDOM.createRoot(
 root.render(
     <BrowserRouter>
         <Header/>
-        <Routing/>
+        <Login/>
         <Footer/>
     </BrowserRouter>
 );
