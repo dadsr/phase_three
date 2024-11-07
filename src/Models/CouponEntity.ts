@@ -1,17 +1,19 @@
+import categoryColors, {Category} from "../Configuratoins/categoryColors";
+
 export class CouponEntity {
     id:number;
     title:string;
     description:string;
-    companyId:string;
-    category:string;
-    price:string;
-    amount:string;
+    companyId:number;
+    category: Category;
+    price:number;
+    amount:number;
     startDate:string;
     endDate:string;
     image:string;
 
 
-    constructor(id: number, title: string, description: string, companyId: string, category: string, price: string, amount: string, startDate: string, endDate: string, image: string) {
+    constructor(id: number, title: string, description: string, companyId: number, category: Category, price: number, amount: number, startDate: string, endDate: string, image: string) {
         this.id = id;
         this.title = title;
         this.description = description;

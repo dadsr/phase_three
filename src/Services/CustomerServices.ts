@@ -1,6 +1,6 @@
 import axios from "axios";
 import {CustomerEntity} from "../Models/CustomerEntity";
-import {API_CONFIG} from "../config";
+import {API_CONFIG} from "../Configuratoins/config";
 
 class CustomerServices{
 
