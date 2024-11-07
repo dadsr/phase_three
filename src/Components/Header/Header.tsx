@@ -4,7 +4,6 @@ import MenuIcon from '@mui/icons-material/Menu';
 import {AppBar, Box, Button, Toolbar, Typography} from "@mui/material";
 import {useEffect, useState} from "react";
 import {useNavigate} from "react-router-dom";
-import {Login} from "../Login/Login";
 
 export function Header(): JSX.Element {
 

@@ -4,19 +4,26 @@ import './index.css';
 import reportWebVitals from './reportWebVitals';
 import {BrowserRouter} from "react-router-dom";
 import {Header} from "./Components/Header/Header";
-import {Routing} from "./Routing/Routing";
 import {Footer} from "./Components/Footer/Footer";
 import {Login} from "./Components/Login/Login";
+import {AlertProvider} from "./Alerts/AlertContext";
+import AlertComponent from "./Alerts/AlertComponent";
+import {Company} from "./Components/CompanyView/Company";
 
 const root = ReactDOM.createRoot(
     document.getElementById('root') as HTMLElement
 );
 root.render(
-    <BrowserRouter>
-        <Header/>
-        <Login/>
-        <Footer/>
-    </BrowserRouter>
+    <React.StrictMode>
+        <AlertProvider>
+            <BrowserRouter>
+                <AlertComponent />
+                <Header/>
+                <Company/>
+                <Footer/>
+            </BrowserRouter>
+        </AlertProvider>
+    </React.StrictMode>
 );
 
 // If you want to start measuring performance in your app, pass a function

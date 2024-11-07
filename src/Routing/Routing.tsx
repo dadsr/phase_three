@@ -5,7 +5,7 @@ import {Admin} from "../Components/AdministratorView/Admin";
 import {Company} from "../Components/CompanyView/Company";
 import {Customer} from "../Components/CustomerView/Customer";
 import {NotFound} from "../Components/NotFound/NotFound";
-import {Login} from "../Components/Login/Login";
+import {Login} from "@mui/icons-material";
 
 
 export function Routing(): JSX.Element {
